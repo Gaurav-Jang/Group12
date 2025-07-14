@@ -1,0 +1,119 @@
+<div class="sidebar" id="sidebar">
+    <div class="p-3">
+        <div class="text-center mb-4">
+            <h4 class="text-white mb-0">
+                <i class="fas fa-brain medical-icon"></i>
+                NeuroHealth
+            </h4>
+            <small class="text-muted">Brain Tumor Detection</small>
+        </div>
+        
+        <nav class="sidebar-nav">
+            {% if current_user.user_type == 'admin' %}
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.endpoint == 'admin.dashboard' }}" href="{{ url_for('admin.dashboard') }}">
+                            <i class="fas fa-tachometer-alt me-2"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.endpoint == 'admin.doctors' }}" href="{{ url_for('admin.doctors') }}">
+                            <i class="fas fa-user-md me-2"></i>
+                            Manage Doctors
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.endpoint == 'admin.patients' }}" href="{{ url_for('admin.patients') }}">
+                            <i class="fas fa-users me-2"></i>
+                            View Patients
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.endpoint == 'admin.predictions' }}" href="{{ url_for('admin.predictions') }}">
+                            <i class="fas fa-brain me-2"></i>
+                            Predictions
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.endpoint == 'admin.appointments' }}" href="{{ url_for('admin.appointments') }}">
+                            <i class="fas fa-calendar-check me-2"></i>
+                            Appointments
+                        </a>
+                    </li>
+                </ul>
+            {% elif current_user.user_type == 'doctor' %}
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.endpoint == 'doctor.dashboard' }}" href="{{ url_for('doctor.dashboard') }}">
+                            <i class="fas fa-tachometer-alt me-2"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.endpoint == 'doctor.appointments' }}" href="{{ url_for('doctor.appointments') }}">
+                            <i class="fas fa-calendar-check me-2"></i>
+                            Appointments
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.endpoint == 'doctor.predictions' }}" href="{{ url_for('doctor.predictions') }}">
+                            <i class="fas fa-brain me-2"></i>
+                            Review Predictions
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.endpoint == 'doctor.schedule' }}" href="{{ url_for('doctor.schedule') }}">
+                            <i class="fas fa-clock me-2"></i>
+                            My Schedule
+                        </a>
+                    </li>
+                </ul>
+            {% elif current_user.user_type == 'patient' %}
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.endpoint == 'patient.dashboard' }}" href="{{ url_for('patient.dashboard') }}">
+                            <i class="fas fa-tachometer-alt me-2"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.endpoint == 'patient.tumor_detection' }}" href="{{ url_for('patient.tumor_detection') }}">
+                            <i class="fas fa-brain me-2"></i>
+                            Brain Scan Analysis
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.endpoint == 'patient.appointments' }}" href="{{ url_for('patient.appointments') }}">
+                            <i class="fas fa-calendar-plus me-2"></i>
+                            Book Appointment
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.endpoint == 'patient.results' }}" href="{{ url_for('patient.results') }}">
+                            <i class="fas fa-file-medical me-2"></i>
+                            My Results
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.endpoint == 'patient.profile' }}" href="{{ url_for('patient.profile') }}">
+                            <i class="fas fa-user me-2"></i>
+                            My Profile
+                        </a>
+                    </li>
+                </ul>
+            {% endif %}
+        </nav>
+    </div>
+    
+    <!-- User info at bottom -->
+    <div class="position-absolute bottom-0 w-100 p-3">
+        <div class="bg-light bg-opacity-10 rounded p-3 text-center">
+            <div class="text-white">
+                <i class="fas fa-user-circle fa-2x mb-2"></i>
+                <div class="small">{{ current_user.first_name }} {{ current_user.last_name }}</div>
+                <div class="small text-muted">{{ current_user.user_type|title }}</div>
+            </div>
+        </div>
+    </div>
+</div>
