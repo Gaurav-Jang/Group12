@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}Brain Scan Analysis - NeuroHealth{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-brain me-2 text-primary"></i>Brain Scan Analysis</h2>
+    <a href="{{ url_for('patient_dashboard') }}" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+    </a>
+</div>
+
+<!-- Upload Section -->
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-upload me-2"></i>Upload MRI Scan</h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>Demo Mode:</strong> This is a demonstration of the brain tumor detection interface. 
+                    In the full version, you would upload MRI images for AI analysis.
+                </div>
+                
+                <div class="upload-area text-center p-5 border border-dashed rounded">
+                    <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+                    <h4>Upload MRI Image</h4>
+                    <p class="text-muted">Drag and drop your MRI scan or click to browse</p>
+                    <input type="file" class="form-control d-none" id="mri-upload" accept="image/*">
+                    <button class="btn btn-primary" onclick="document.getElementById('mri-upload').click()">
+                        <i class="fas fa-folder-open me-2"></i>Choose File
+                    </button>
+                </div>
+                
+                <div class="mt-4 text-center">
+                    <button class="btn btn-success btn-lg" id="analyze-btn" disabled>
+                        <i class="fas fa-brain me-2"></i>Analyze Brain Scan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Information Section -->
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-info me-2"></i>Supported Formats</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-check text-success me-2"></i>JPEG (.jpg, .jpeg)</li>
+                    <li><i class="fas fa-check text-success me-2"></i>PNG (.png)</li>
+                    <li><i class="fas fa-check text-success me-2"></i>TIFF (.tiff, .tif)</li>
+                    <li><i class="fas fa-check text-success me-2"></i>BMP (.bmp)</li>
+                </ul>
+                <small class="text-muted">Maximum file size: 16MB</small>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-shield-alt me-2"></i>Privacy & Security</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-lock text-success me-2"></i>End-to-end encryption</li>
+                    <li><i class="fas fa-user-shield text-success me-2"></i>HIPAA compliant</li>
+                    <li><i class="fas fa-trash text-success me-2"></i>Auto-delete after analysis</li>
+                    <li><i class="fas fa-eye-slash text-success me-2"></i>Private and confidential</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('mri-upload').addEventListener('change', function(e) {
+    const analyzeBtn = document.getElementById('analyze-btn');
+    if (e.target.files.length > 0) {
+        analyzeBtn.disabled = false;
+        const fileName = e.target.files[0].name;
+        document.querySelector('.upload-area h4').textContent = `Selected: ${fileName}`;
+        document.querySelector('.upload-area p').textContent = 'File ready for analysis';
+    }
+});
+
+document.getElementById('analyze-btn').addEventListener('click', function() {
+    alert('Demo Mode: In the full version, this would analyze your MRI scan using AI and provide detailed results.');
+});
+</script>
+{% endblock %}

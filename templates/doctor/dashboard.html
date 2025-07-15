@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block title %}Doctor Dashboard - NeuroHealth{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-user-md me-2 text-primary"></i>Doctor Dashboard</h2>
+    <div class="text-muted">
+        <i class="fas fa-calendar me-1"></i>
+        <span id="current-date"></span>
+    </div>
+</div>
+
+<!-- Statistics Cards -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card stats-card h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-calendar-check fa-2x text-primary mb-3"></i>
+                <h3 class="text-primary">{{ stats.total_appointments or 0 }}</h3>
+                <p class="text-muted mb-0">Total Appointments</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card stats-card h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-clock fa-2x text-warning mb-3"></i>
+                <h3 class="text-warning">{{ stats.pending_appointments or 0 }}</h3>
+                <p class="text-muted mb-0">Pending Appointments</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card prediction-card h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-brain fa-2x text-info mb-3"></i>
+                <h3 class="text-info">{{ stats.total_predictions or 0 }}</h3>
+                <p class="text-muted mb-0">Total Predictions</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card stats-card h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-eye fa-2x text-success mb-3"></i>
+                <h3 class="text-success">{{ stats.pending_reviews or 0 }}</h3>
+                <p class="text-muted mb-0">Pending Reviews</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-calendar-check me-2"></i>Appointments</h5>
+            </div>
+            <div class="card-body">
+                <p class="text-muted">Manage patient appointments</p>
+                <a href="{{ url_for('patient_appointments') }}" class="btn btn-primary">
+                    <i class="fas fa-list me-2"></i>View Appointments
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-brain me-2"></i>Predictions</h5>
+            </div>
+            <div class="card-body">
+                <p class="text-muted">Review AI predictions</p>
+                <a href="{{ url_for('patient_results') }}" class="btn btn-primary">
+                    <i class="fas fa-eye me-2"></i>Review Predictions
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-clock me-2"></i>Schedule</h5>
+            </div>
+            <div class="card-body">
+                <p class="text-muted">Manage your schedule</p>
+                <button class="btn btn-primary" disabled>
+                    <i class="fas fa-calendar me-2"></i>My Schedule
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Activity -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-activity me-2"></i>Welcome, Dr. {{ current_user.first_name }}!</h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    This is the doctor portal for the NeuroHealth Brain Tumor Detection System. Use the navigation to access different features.
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Specialization</h6>
+                        <span class="badge bg-primary">{{ current_user.specialization or 'Neurology' }}</span>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Status</h6>
+                        <span class="badge bg-success">Active</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Update the date display
+document.addEventListener('DOMContentLoaded', function() {
+    const now = new Date();
+    const options = { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+    };
+    document.getElementById('current-date').textContent = now.toLocaleDateString('en-US', options);
+});
+</script>
+{% endblock %}

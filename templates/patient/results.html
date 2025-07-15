@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}My Results - NeuroHealth{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-file-medical me-2 text-primary"></i>My Results</h2>
+    <a href="{{ url_for('patient_dashboard') }}" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+    </a>
+</div>
+
+<div class="alert alert-info">
+    <i class="fas fa-info-circle me-2"></i>
+    <strong>Demo Mode:</strong> This page would show your scan results and medical reports.
+</div>
+
+<div class="text-center py-5">
+    <i class="fas fa-file-medical fa-4x text-muted mb-4"></i>
+    <h3>No Results Available</h3>
+    <p class="text-muted">Upload an MRI scan to see your analysis results here.</p>
+    <a href="{{ url_for('tumor_detection') }}" class="btn btn-primary">
+        <i class="fas fa-upload me-2"></i>Upload MRI Scan
+    </a>
+</div>
+{% endblock %}
